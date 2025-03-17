@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HyperAir Dashboard - Modern UI</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
+  <style>
+    /* RESET */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* GLOBAL STYLES */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    /* HEADER */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between; /* Logo on left, nav+burger on right */
+      background: linear-gradient(90deg, #4e54c8, #8f94fb);
+      padding: 15px 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: relative; /* For absolute-positioned nav on mobile */
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    .logo img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+      border-radius: 50%;
+    }
+    .logo span {
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    /* NAV (DESKTOP) */
+    nav ul {
+      list-style: none;
+      display: flex; /* horizontal on large screens */
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li {
+      margin: 0 10px;
+    }
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 5px 10px;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+    nav ul li a:hover,
+    nav ul li a.active {
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* BURGER ICON (HIDDEN ON DESKTOP) */
+    .burger {
+      display: none; /* shown only on mobile */
+      flex-direction: column;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    .burger span {
+      width: 25px;
+      height: 3px;
+      background: #fff;
+      margin: 4px 0;
+      transition: all 0.3s;
+    }
+
+    /* MAIN CONTENT */
+    main {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    /* GAUGE SECTION */
+    .gauge-section {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .gauge-wrapper {
+      position: relative;
+      width: 250px;
+      height: 250px;
+      margin: 0 auto;
+    }
+    .radial-gauge {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: conic-gradient(#ff5722 0deg, #e0e0e0 0deg);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.5s;
+    }
+    .gauge-inner {
+      position: absolute;
+      width: 70%;
+      height: 70%;
+      background: #fff;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .gauge-icon {
+      font-size: 40px;
+      margin-bottom: 5px;
+    }
+    .gauge-value {
+      font-size: 32px;
+      font-weight: bold;
+    }
+    .gauge-unit {
+      font-size: 16px;
+      color: #777;
+    }
+    .status {
+      font-size: 20px;
+      font-weight: 500;
+      margin-top: 15px;
+    }
+
+    /* METRICS SECTION */
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 18px;
+      color: #555;
+    }
+    .card p {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ff5722;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: #777;
+    }
+
+    /* MEDIA QUERY (MOBILE) */
+    @media (max-width: 768px) {
+      /* Hide horizontal nav, show burger */
+      nav ul {
+        display: none;
+        flex-direction: column;
+        background: #fff;
+        position: absolute;
+        top: 60px;     /* just below header */
+        right: 20px;   /* align to right side */
+        width: 180px;  
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        border-radius: 6px;
+        overflow: hidden;
+        z-index: 9999; /* ensures nav sits above gauge */
+      }
+      nav ul li {
+        margin: 0;
+      }
+      nav ul li a {
+        color: #333;
+        padding: 10px 15px;
+      }
+      nav ul li a:hover,
+      nav ul li a.active {
+        background: #f2f2f2;
+      }
+      nav ul.active {
+        display: flex; /* show nav when toggled */
+      }
+
+      .burger {
+        display: flex; /* visible on mobile screens */
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <!-- LOGO ON LEFT -->
+    <div class="logo">
+      <img src="logo.png" alt="HyperAir Logo">
+      <span>HyperAir</span>`
+    </div>
+
+    <!-- NAV + BURGER ON RIGHT -->
+    <div class="header-right">
+      <nav>
+        <ul id="nav-links">
+          <li><a href="dashboard.html" class="active">Dashboard</a></li>
+          <li><a href="his.html">History</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="about.html">About Us</a></li>
+        </ul>
+      </nav>
+      <div class="burger" id="burger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="gauge-section">
+      <div class="gauge-wrapper">
+        <div class="radial-gauge" id="radialGauge">
+          <div class="gauge-inner">
+            <span class="gauge-icon" role="img" aria-label="mask">😷</span>
+            <span class="gauge-value" id="pm25Value">100.6</span>
+            <span class="gauge-unit">μg/m³</span>
+          </div>
+        </div>
+      </div>
+      <p class="status" id="statusText">Caution advised</p>
+    </section>
+    <section class="metrics">
+      <div class="card">
+        <h3>US AQI</h3>
+        <p id="aqiValue">113.5</p>
+      </div>
+      <div class="card">
+        <h3>Air Quality</h3>
+        <p>Poor</p>
+      </div>
+      <div class="card">
+        <h3>Temperature</h3>
+        <p id="tempValue">28°C</p>
+      </div>
+      <div class="card">
+        <h3>Humidity</h3>
+        <p id="humidityValue">48%</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 HyperAir. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // 1) Gauge Logic
+    document.addEventListener('DOMContentLoaded', function() {
+      const pm25 = 100.6;
+      const gauge = document.getElementById('radialGauge');
+      const statusText = document.getElementById('statusText');
+      
+      // Calculate percentage (using 300 as the maximum value)
+      const percentage = Math.min(pm25 / 300, 1);
+      const degree = percentage * 360;
+    
+      // Set color thresholds
+      let color = '#4caf50'; // Good
+      if (pm25 > 12) color = '#ff9800';  // Moderate
+      if (pm25 > 35.5) color = '#ff5722'; // Unhealthy
+      if (pm25 > 150) color = '#9c27b0';  // Very Unhealthy
+      if (pm25 > 250) color = '#880e4f';  // Hazardous
+    
+      // Update radial gauge using a conic-gradient
+      gauge.style.background = `conic-gradient(${color} ${degree}deg, #e0e0e0 ${degree}deg)`;
+      statusText.style.color = color;
+    });
+
+    // 2) Burger Menu Toggle
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('nav-links');
+    burger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>

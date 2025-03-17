@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HyperAir - News</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
+
+  <style>
+    /* RESET & GLOBAL STYLES */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* HEADER: LOGO LEFT, NAV/BURGER RIGHT */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between; /* Logo on left, nav+burger on right */
+      background: linear-gradient(90deg, #4e54c8, #8f94fb);
+      padding: 15px 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: relative; /* For dropdown positioning on mobile */
+    }
+    /* LOGO */
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    .logo img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+      border-radius: 50%;
+    }
+    .logo span {
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    /* RIGHT SIDE: NAV + BURGER WRAPPER */
+    .header-right {
+      display: flex;
+      align-items: center;
+      position: relative; /* so nav can be absolutely positioned on mobile */
+    }
+
+    /* NAV - Desktop: Horizontal on the right */
+    nav ul {
+      list-style: none;
+      display: flex; /* horizontal on large screens */
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li {
+      margin: 0 10px;
+    }
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 5px 10px;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+    nav ul li a:hover,
+    nav ul li a.active {
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* BURGER (Hidden on desktop) */
+    .burger {
+      display: none;           /* Shown only on mobile */
+      flex-direction: column;
+      cursor: pointer;
+      margin-left: 10px;       /* Space between nav and burger */
+    }
+    .burger span {
+      width: 25px;
+      height: 3px;
+      background: #fff;
+      margin: 4px 0;
+      transition: all 0.3s;
+    }
+
+    /* MAIN CONTENT (NEWS) */
+    main {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    .news-section {
+      margin: 20px 0;
+    }
+    .news-section h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 28px;
+      color: #333;
+    }
+    .news-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .news-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+    .news-card:hover {
+      transform: translateY(-5px);
+    }
+    .news-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+    .card-content {
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .card-content h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .card-content p {
+      font-size: 14px;
+      margin-bottom: 15px;
+      color: #666;
+      flex-grow: 1;
+    }
+    .card-content a {
+      text-decoration: none;
+      color: #ff5722;
+      font-weight: bold;
+      align-self: flex-start;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: #777;
+    }
+
+    /* MEDIA QUERY (MOBILE) */
+    @media (max-width: 768px) {
+      /* Hide horizontal nav, show burger */
+      nav ul {
+        display: none;
+        flex-direction: column;
+        background: #fff;
+        position: absolute;
+        top: 60px;      /* just below header */
+        right: 20px;    /* align to right side */
+        width: 180px;   /* fixed width for dropdown */
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      nav ul li {
+        margin: 0;
+      }
+      nav ul li a {
+        color: #333;
+        padding: 10px 15px;
+      }
+      nav ul li a:hover,
+      nav ul li a.active {
+        background: #f2f2f2;
+      }
+      nav ul.active {
+        display: flex; /* Show nav when toggled */
+      }
+
+      .burger {
+        display: flex; /* visible on mobile screens */
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <!-- LOGO ON LEFT -->
+    <div class="logo">
+      <img src="logo.png" alt="HyperAir Logo">
+      <span>HyperAir</span>
+    </div>
+
+    <!-- NAV + BURGER ON RIGHT -->
+    <div class="header-right">
+      <nav>
+        <ul id="nav-links">
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="his.html">History</a></li>
+          <li><a href="news.html" class="active">News</a></li>
+          <li><a href="about.html">About Us</a></li>
+        </ul>
+      </nav>
+      <div class="burger" id="burger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="news-section">
+      <h1>Latest Air Quality News</h1>
+      <div class="news-container">
+        <article class="news-card">
+          <img src="https://shorturl.at/QSf2N" alt="News Image 1">
+          <div class="card-content">
+            <h2>New Air Quality Regulations Announced</h2>
+            <p>Government officials have introduced new standards aimed at reducing air pollution and improving public health.</p>
+            <a href="#">Read More</a>
+          </div>
+        </article>
+        <article class="news-card">
+          <img src="https://shorturl.at/QSf2N" alt="News Image 2">
+          <div class="card-content">
+            <h2>Community Initiatives to Combat Smog</h2>
+            <p>Local communities launch innovative projects to monitor and reduce smog levels in urban areas.</p>
+            <a href="#">Read More</a>
+          </div>
+        </article>
+        <article class="news-card">
+          <img src="https://shorturl.at/QSf2N" alt="News Image 3">
+          <div class="card-content">
+            <h2>Advances in Air Quality Monitoring Technology</h2>
+            <p>New sensor technology promises more accurate and real-time air quality data for consumers and researchers.</p>
+            <a href="#">Read More</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 HyperAir. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Toggle burger menu on small screens
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('nav-links');
+    burger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>

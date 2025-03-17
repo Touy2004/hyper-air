@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HyperAir - History</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
+
+  <style>
+    /* RESET & GLOBAL STYLES */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* HEADER */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between; /* Logo on left, nav+burger on right */
+      background: linear-gradient(90deg, #4e54c8, #8f94fb);
+      padding: 15px 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: relative; /* For dropdown positioning on mobile */
+    }
+    /* LOGO */
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    .logo img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+      border-radius: 50%;
+    }
+    .logo span {
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    /* RIGHT SIDE: NAV + BURGER WRAPPER */
+    .header-right {
+      display: flex;
+      align-items: center;
+      position: relative; /* so nav can be absolutely positioned on mobile */
+    }
+
+    /* NAV - Desktop: Horizontal on the right */
+    nav ul {
+      list-style: none;
+      display: flex; /* horizontal on large screens */
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li {
+      margin: 0 10px;
+    }
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 5px 10px;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+    nav ul li a:hover,
+    nav ul li a.active {
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* BURGER (Hidden on desktop) */
+    .burger {
+      display: none;           /* Shown only on mobile */
+      flex-direction: column;
+      cursor: pointer;
+      margin-left: 10px;       /* Space between nav and burger */
+    }
+    .burger span {
+      width: 25px;
+      height: 3px;
+      background: #fff;
+      margin: 4px 0;
+      transition: all 0.3s;
+    }
+
+    /* MAIN CONTENT */
+    main {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .table-container {
+      width: 100%;
+      overflow-x: auto;  /* allows horizontal scroll if table is too wide */
+      background: #fff;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px; /* ensures columns don’t get too narrow */
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px 15px;
+      text-align: center;
+    }
+    th {
+      background-color: #f4f4f4;
+      font-weight: 600;
+    }
+    tr:nth-child(even) {
+      background-color: #fafafa;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: #777;
+    }
+
+    /* MEDIA QUERY (TABLET & DOWN) */
+    @media (max-width: 768px) {
+      /* Hide horizontal nav, show burger */
+      nav ul {
+        display: none; /* hidden by default on small screens */
+        flex-direction: column;
+        background: #fff;
+        position: absolute;
+        top: 60px;      /* just below header */
+        right: 20px;
+        width: 150px;   /* fixed width for dropdown */
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      nav ul li {
+        margin: 0;
+      }
+      nav ul li a {
+        color: #333; /* dark text on white background */
+        padding: 10px 15px;
+      }
+      nav ul li a:hover,
+      nav ul li a.active {
+        background: #f2f2f2;
+      }
+      nav ul.active {
+        display: flex; /* show nav when toggled */
+      }
+
+      /* Show burger icon on small screens */
+      .burger {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <!-- LOGO LEFT -->
+    <div class="logo">
+      <img src="logo.png" alt="HyperAir Logo">
+      <span>HyperAir</span>
+    </div>
+
+    <!-- NAV + BURGER RIGHT -->
+    <div class="header-right">
+      <nav>
+        <ul id="nav-links">
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="his.html" class="active">History</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="about.html">About Us</a></li>
+        </ul>
+      </nav>
+      <div class="burger" id="burger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <h1>Air Quality History</h1>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Date/Time</th>
+            <th>PM2.5 (μg/m³)</th>
+            <th>US AQI</th>
+            <th>Temperature</th>
+            <th>Humidity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2025-03-15 09:00</td>
+            <td>45.3</td>
+            <td>95</td>
+            <td>26°C</td>
+            <td>50%</td>
+          </tr>
+          <tr>
+            <td>2025-03-15 10:00</td>
+            <td>50.6</td>
+            <td>113</td>
+            <td>27°C</td>
+            <td>48%</td>
+          </tr>
+          <tr>
+            <td>2025-03-15 11:00</td>
+            <td>55.2</td>
+            <td>120</td>
+            <td>28°C</td>
+            <td>45%</td>
+          </tr>
+          <tr>
+            <td>2025-03-15 12:00</td>
+            <td>60.1</td>
+            <td>130</td>
+            <td>29°C</td>
+            <td>42%</td>
+          </tr>
+          <tr>
+            <td>2025-03-15 13:00</td>
+            <td>62.4</td>
+            <td>135</td>
+            <td>30°C</td>
+            <td>40%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 HyperAir. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Toggle burger menu on small screens
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('nav-links');
+    burger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>
